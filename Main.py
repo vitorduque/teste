@@ -9,40 +9,40 @@ options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=options)
 
 try:
-    driver.get('file:///C:/Users/LabInfo/Downloads/cadastro.html')
+    driver.get('C:\\Users\\LabInfo\\Downloads\\index.html')
     print("o teste 1 foi um sucesso!")
-    def enviarDados(nome, email, telefone, data):
+    def enviarDados(nome, email, cpf, numero):
         nome_login = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "nome"))
         ) 
         print("o teste 2 foi um sucesso!")
         email_login = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "email"))
+            EC.presence_of_element_located((By.ID, "email1"))
         )
         print("o teste 3 foi um sucesso!")
-        telefone_login = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "numero"))
+        cpf_login = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "cpf"))
         )
         print("o teste 4 foi um sucesso!")
-        data_login = WebDriverWait(driver,10).until(
-            EC.presence_of_element_located((By.ID, "data"))
+        numero_login = WebDriverWait(driver,10).until(
+            EC.presence_of_element_located((By.ID, "numero"))
         )
         print("o teste 5 foi um sucesso!")
         btn_login = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "botao"))
+            EC.presence_of_element_located((By.XPATH, "/html/body/button"))
         )
         print("o teste 6 foi um sucesso!")
         nome_login.send_keys(nome)
         print("o teste 7 foi um sucesso!")
         email_login.send_keys(email)
         print("o teste 8 foi um sucesso!")
-        telefone_login.send_keys(telefone)
+        cpf_login.send_keys(cpf)
         print("o teste 9 foi um sucesso!")
-        data_login.send_keys(data)
+        numero_login.send_keys(numero)
         print("o teste 10 foi um sucesso!")
         btn_login.click()
         print("o teste 11 foi um sucesso!")
-    alert = enviarDados('ApenasUmDio','blablabla@gmail.com', "32147238", '10/03/1975')
+    alert = enviarDados('ApenasUmDio','blablabla@gmail.com', "966960234", '32988234290')
     print("o teste foi um sucesso!")
 
 except:
