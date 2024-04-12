@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #cadastro {
+            width: 300px;
+            margin: 200px auto;
+            text-align: center;
+        }
+
+        input {
+            display: block;
+            margin: 5px auto;
+            width: 350px;
+            height: 30px;
+        }
+
+        h3 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="cadastro">
+        <div class="form-cadastro">
+            <h3>Cadastro</h3>
+            <label>
+                <input type="text" placeholder="Nome" id="nome" required>
+            </label>
+
+            <label>
+                <input type="email" placeholder="Email" id="email1">
+            </label>
+
+            <label>
+                <input type="number" placeholder="CPF" id="cpf">
+            </label>
+
+            <label>
+                <input type="number" placeholder="Telefone" id="numero">
+            </label>
+        </div>
+    </form>
+
+    <button onclick="addUser()">Cadastrar</button>
+    
+    <h2>Gerenciador de Usuários</h2>
+
+    <form id="userForm">
+
+    </form>
+
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aqui serão inseridos os usuários -->
+        </tbody>
+    </table>
+
+    <script>
+        // Array para armazenar os usuários
+        let users = [];
+
+        // Função para renderizar os usuários na tabela
+        function renderUsers() {
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${user.nome}</td>
+                <td>${user.email1}</td>
+                <td>${user.cpf}</td>
+                <td>${user.numero}</td>
+                <td>
+                    <button onclick="editUser('${user.nome}', '${user.email1}', '${user.cpf}', '${user.numero}')">Editar</button>
+                    <button onclick="deleteUser('${user.email1}')">Excluir</button>
+                </td>
+            `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Função para adicionar um usuário
+        function addUser() {
+            const nome = document.querySelector('#nome').value;
+            const email1 = document.querySelector('#email1').value;
+            const cpf = document.querySelector('#cpf').value;
+            const numero = document.querySelector('#numero').value;
+            users.push({ nome, email1, cpf, numero });
+            renderUsers();
+        }
+
+        // Função para editar um usuário
+        function editUser(nome, email1, cpf, numero) {
+            const newNome = prompt('Novo nome:', nome);
+            const newEmail1 = prompt('Novo email:', email1);
+            const newCpf = prompt('Novo cpf:', cpf);
+            const newNumero = prompt('Novo numero:', numero);
+
+            if (newNome && newEmail1 && newCpf && newNumero) {
+                const index = users.findIndex(user => user.email1 === email1);
+                if (index !== -1) {
+                    users[index] = { nome: newNome, email1: newEmail1, cpf: newCpf, numero: newNumero };
+                    renderUsers();
+                }
+            }
+        }
+
+        // Função para excluir um usuário
+        function deleteUser(email1) {
+            users = users.filter(user => user.email1 !== email1);
+            renderUsers();
+        }
+
+    </script>
+
+</body>
+
+</html>
